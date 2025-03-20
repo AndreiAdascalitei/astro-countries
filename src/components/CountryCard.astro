@@ -1,0 +1,35 @@
+---
+interface Props {
+  country: {
+    name: { common: string };
+    flags: { svg: string };
+    capital: string[];
+    languages: Record<string, string>;
+  };
+}
+
+const { country } = Astro.props;
+---
+
+<div class="card">
+  <img src={country.flags.svg} alt={country.name.common} class="flag" />
+  <h2>{country.name.common}</h2>
+  <p><strong>Capital:</strong> {country.capital?.[0]}</p>
+  <p><strong>Languages:</strong> {Object.values(country.languages || {}).join(", ")}</p>
+</div>
+
+<style>
+.card {
+  border-radius: 8px;
+  margin: 1rem;
+  padding: 1rem;
+  border: 1px solid black;
+  text-align: center;
+  width: 250px;
+}
+.flag {
+  width: 100px;
+  height: auto;
+  border-radius: 4px;
+}
+</style>

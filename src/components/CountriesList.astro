@@ -1,0 +1,17 @@
+---
+import CountryCard from "./CountryCard.astro";
+
+async function getCountries() {
+    const res = await fetch("https://restcountries.com/v3.1/region/europe?fields=name,flags,capital,languages,landlocked");
+    if (!res.ok) throw new Error("Failed to fetch countries");
+    
+    const countries = await res.json();
+    return countries;
+}
+
+const countries = await getCountries();
+---
+
+<div class="grid">
+    {countries.map(country => <CountryCard country={country} />)}
+</div>
