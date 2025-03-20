@@ -1,5 +1,5 @@
 ---
-import CountryCard from "./CountryCard.astro";
+import CountriesList from "./CountriesList.tsx";
 
 async function getCountries() {
     const res = await fetch("https://restcountries.com/v3.1/region/europe?fields=name,flags,capital,languages,landlocked");
@@ -12,6 +12,4 @@ async function getCountries() {
 const countries = await getCountries();
 ---
 
-<div class="grid">
-    {countries.map(country => <CountryCard country={country} />)}
-</div>
+<CountriesList countries={countries} client:load />
