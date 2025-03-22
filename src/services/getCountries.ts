@@ -1,6 +1,6 @@
 export async function getCountries(count?: number): Promise<{ countries: any[] | null; error: string | null }> {
     try {
-        const res = await fetch("https://restcountriesss.com/v3.1/region/europe?fields=name,flags,capital,languages,landlocked");
+        const res = await fetch("https://restcountries.com/v3.1/region/europe?fields=name,flags,capital,languages,landlocked");
     
         if (!res.ok) {
             return {
