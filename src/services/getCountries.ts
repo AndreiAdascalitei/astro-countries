@@ -1,28 +1,35 @@
 export async function getCountries(count?: number): Promise<{ countries: any[] | null; error: string | null }> {
-    const res = await fetch("https://restcountries.com/v3.1/region/europe?fields=name,flags,capital,languages,landlocked");
+    try {
+        const res = await fetch("https://restcountriesss.com/v3.1/region/europe?fields=name,flags,capital,languages,landlocked");
     
-    if (!res.ok) {
+        if (!res.ok) {
+            return {
+                countries: [],
+                error: `API Error: ${res.status} - ${res.statusText}`,
+            };
+        } 
+
+        const countries = await res.json();
+
+        if (!Array.isArray(countries)) {
+            return {
+            countries: [],
+            error: "Unexpected API response format. Expected an array.",
+            };
+        }
+
+        if(count) {
+            const shuffled = shuffleArray(countries).slice(0, count);
+            return { countries: shuffled, error: null };
+        } else {
+            return { countries: countries, error: null };
+        } 
+    } catch (err: any) {
         return {
             countries: [],
-            error: `API Error: ${res.status} - ${res.statusText}`,
-        };
-    } 
-
-    const countries = await res.json();
-
-    if (!Array.isArray(countries)) {
-        return {
-          countries: [],
-          error: "Unexpected API response format. Expected an array.",
+            error: `Network Error: ${err?.message || "Unknown error occurred while fetching countries."}`,
         };
     }
-
-    if(count) {
-        const shuffled = shuffleArray(countries).slice(0, count);
-        return { countries: shuffled, error: null };
-    } else {
-        return { countries: countries, error: null };
-    } 
 }
 
 // In order to pick random countries I need to shuffle the array. Choosed an O(n) solution
