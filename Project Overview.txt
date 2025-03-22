@@ -1,0 +1,35 @@
+Hi there!
+
+As with any new framework, I initially found it challenging to figure out the right project structure, especially when it comes to deciding when to use React vs Astro, if I should build the grid/card component on Astro or React. 
+
+I began by creating two Astro components: CountryList.astro and CountryCard.astro, along with a React component to handle the toggle functionality. That's when I discovered that Astro components cannot be used inside React components, only vice versa. 
+
+So I ended up by having this structure: 
+1. Countries.astro -> we can remove it and move it directly to the index.astro
+	- fetching the country data
+        - rendering the React component and the ErrorPanel
+2. CountriesList.tsx (React)
+        - display country grid containing the country cards
+        - filters the grid when toggle-ing
+3. ErrorPanel.astro
+        - show error messages in a card format
+        - separate component for reusability
+4. getCountries.ts
+        - API logic for fetching countries
+        - separate utility for reusability
+5. *module.scss
+        - CSS modules for scoped styles 
+        - scss best for organization and maintainability
+6. index.astro
+ 	- the main page. currently used only for rendering <Countries /> 
+
+You can check the timeline (https://github.com/AndreiAdascalitei/astro-countries/activity). I tried to commit after each task was finished. 
+
+Room for improvement: - get rid of react and use plain js for toggle (reduce bundle size). Keep only Astro for rendering the grid/cards. Something like this example: https://digital-expanse.com/tutorials/astro-blog-filters/
+
+Have a great week! 
+
+Looking forward to your feedback!
+
+Thanks, 
+Andrei
