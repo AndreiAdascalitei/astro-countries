@@ -21,7 +21,7 @@ export default function CountriesList({ countries }: Props) {
     : countries;
 
   return (
-    <div>
+    <div className={styles.container}>
        {/* 
         Toggle Switch - took it from here: https://www.w3schools.com/howto/howto_css_switch.asp 
         Best practice is to create a reusable UI component for this one, for later use. For simplicity, I'll keep it like this..
@@ -43,7 +43,9 @@ export default function CountriesList({ countries }: Props) {
       <div className={styles.grid}>
         {filteredCountries.map((country) => (
             <div key={country.name.common} className={styles.card}>
-                <img src={country.flags.svg} alt={`Flag of ${country.name.common}`} className={styles.flag} />
+                <div className={styles.flagContainer}>
+                  <img src={country.flags.svg} alt={`Flag of ${country.name.common}`} className={styles.flag} />
+                </div>
                 <h2>{country.name.common}</h2>
                 <p>Capital: {country.capital ? country.capital[0] : "N/A"}</p>
                 <p>Languages: {country.languages ? Object.values(country.languages).join(", ") : "N/A"}</p>
