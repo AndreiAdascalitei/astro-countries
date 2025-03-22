@@ -1,0 +1,11 @@
+---
+import styles from "./ErrorPanel.module.scss";
+
+const { message } = Astro.props;
+---
+
+{message && (
+    <div className={styles.error}>
+      <p>{message}</p>
+    </div>
+  )}

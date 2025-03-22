@@ -1,28 +1,10 @@
 ---
 import CountriesList from "./CountriesList.tsx";
+import { getCountries } from "../services/getCountries";
+import ErrorPanel from "./ErrorPanel.astro";
 
-async function getCountries() {
-    const res = await fetch("https://restcountries.com/v3.1/region/europe?fields=name,flags,capital,languages,landlocked");
-    if (!res.ok) throw new Error("Failed to fetch countries");
-    
-    const countries = await res.json();
-    return countries;
-}
-
-// In order to pick random countries I need to shuffle the array. Choosed an O(n) solution
-function shuffleArray(array: any[]) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-}
-
-function getRandomCountries(countries: any[], count: number = 12) {
-    return shuffleArray(countries).slice(0, count);
-}
-
-const countries = await getCountries();
+const { countries, error } = await getCountries(12);
 ---
 
-<CountriesList countries={getRandomCountries(countries, 12)} client:load />
+<ErrorPanel message={error} />
+<CountriesList countries={countries} client:load />

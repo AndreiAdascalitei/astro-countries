@@ -40,13 +40,19 @@ export default function CountriesList({ countries }: Props) {
         </span>
       </div>
 
+      {/* Message if no countries found */}
+      {filteredCountries.length === 0 && (
+        <p>No countries to display.</p>
+      )}
+
+
       <div className={styles.grid}>
         {filteredCountries.map((country) => (
-            <div key={country.name.common} className={styles.card}>
+            <div key={country.name?.common} className={styles.card}>
                 <div className={styles.flagContainer}>
-                  <img src={country.flags.svg} alt={`Flag of ${country.name.common}`} className={styles.flag} />
+                  <img src={country?.flags?.svg} alt={`Flag of ${country.name?.common}`} className={styles.flag} />
                 </div>
-                <h2>{country.name.common}</h2>
+                <h2>{country.name?.common}</h2>
                 <p>Capital: {country.capital ? country.capital[0] : "N/A"}</p>
                 <p>Languages: {country.languages ? Object.values(country.languages).join(", ") : "N/A"}</p>
           </div>
